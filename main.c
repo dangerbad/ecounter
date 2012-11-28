@@ -21,9 +21,6 @@
 volatile struct isrstruct isrflags;
 volatile struct trigstruct trigflags;
 
-/* temp storage for lcd routine */
-char sfreq[16];
-char sjif[16];
 
 /* LCD status strings */
 char gate_str[][5] PROGMEM = 
@@ -59,9 +56,9 @@ struct param parms[] =
 volatile uint8_t mode;
 uint8_t avg;
 
+void oca_none(void);
 void oca_open(void);
 void oca_close(void);
-void oca_none(void);
 void updisplay(void);
 uint8_t debounce(uint8_t b);
 
@@ -146,6 +143,7 @@ void oca_close(void)
 /* draw entire display, isn't updated offten enough to care */
 void updisplay(void)
 {
+    char lcd_str[16];
     lcd_clrscr();
     lcd_puts_p(PSTR("Freq:"));
     switch (mode)
@@ -158,15 +156,15 @@ void updisplay(void)
             {
                 /* TODO */
             };
-            ultoa(count,sfreq,10);
+            ultoa(count,lcd_str,10);
             break;
         case MODE_RECIP:
             /* TODO */
             break;
         default:
-            strcpy_P(sfreq, PSTR("ERROR"));
+            strcpy_P(lcd_str, PSTR("ERROR"));
     }
-    lcd_puts(sfreq);
+    lcd_puts(lcd_str);
     lcd_gotoxy(0,1);
     lcd_puts_p(PSTR("Mode:"));
     lcd_puts_p(gate_str[mode]);
@@ -176,8 +174,8 @@ void updisplay(void)
     else
         lcd_putc('N');
     lcd_puts_p(PSTR(" J:"));
-    ultoa(jiffies,sjif,10);
-    lcd_puts(sjif);
+    ultoa(jiffies,lcd_str,10);
+    lcd_puts(lcd_str);
 }
 
 
@@ -200,6 +198,7 @@ void ioinit(void)
     WDTCSR |= _BV(WDE)| _BV(WDIE) | _BV(WDP2) | _BV(WDP0);
 }
 
+/* swap mode */
 void nextmode(void)
 {
 
@@ -237,6 +236,7 @@ uint8_t readbutton(uint8_t b)
     return r;
 }
 
+/* probably overkill */
 uint8_t debounce(uint8_t b)
 /* Finite State Machine */
 /* states
@@ -248,8 +248,8 @@ uint8_t debounce(uint8_t b)
  */
 {
     static int8_t count[BUTTONS];
-    static uint8_t state[BUTTONS] = {BSTART};
-    static uint8_t last[BUTTONS] = {BNONE};
+    static uint8_t state[BUTTONS];
+    static uint8_t last[BUTTONS];
 
     uint8_t button;
 
