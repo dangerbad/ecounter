@@ -14,27 +14,35 @@
 
 #define CNTQ0_DDR DDRB
 #define CNTQ0_PORT PORTB
+#define CNTQ0_IN PINB
 #define CNTQ0_PIN PB3
 #define CNTQ1_DDR DDRB
 #define CNTQ1_PORT PORTB
+#define CNTQ1_IN PINB
 #define CNTQ1_PIN PB4
 #define CNTQ2_DDR DDRC
 #define CNTQ2_PORT PORTC
+#define CNTQ2_IN PINB
 #define CNTQ2_PIN PC0
 #define CNTQ3_DDR DDRC
 #define CNTQ3_PORT PORTC
+#define CNTQ3_IN PINB
 #define CNTQ3_PIN PC1
 #define CNTQ4_DDR DDRC
 #define CNTQ4_PORT PORTC
+#define CNTQ4_IN PINB
 #define CNTQ4_PIN PC2
 #define CNTQ5_DDR DDRC
 #define CNTQ5_PORT PORTC
+#define CNTQ5_IN PINB
 #define CNTQ5_PIN PC3
 #define CNTQ6_DDR DDRC
 #define CNTQ6_PORT PORTC
+#define CNTQ6_IN PINB
 #define CNTQ6_PIN PC4
 #define CNTQ7_DDR DDRC
 #define CNTQ7_PORT PORTC
+#define CNTQ7_IN PINB
 #define CNTQ7_PIN PC5
 
 #define CNTRCO_DDR DDRD

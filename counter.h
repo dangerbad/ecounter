@@ -6,20 +6,18 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "pins.h"
 
+#define gate_open() GATE_PORT |= _BV(GATE_PIN);
+#define gate_close() GATE_PORT &= ~_BV(GATE_PIN);
 
 extern uint16_t counter_ovf;
 extern uint32_t count; 
 
 extern void clear_count(void);
 extern void read_count(void);
-extern void gate_open(void);
-extern void gate_close(void);
-extern void start_cnt(void);
-extern void stop_cnt(void);
-extern void stop_cap(void);
 extern void sched_cnt(void);
 extern void sched_cap(void);
 

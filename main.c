@@ -126,7 +126,6 @@ ISR(TIMER0_OVF_vect)
     }
 }
 
-
 /* disable oca1 gate control */
 void oca_none(void)
 {
@@ -325,7 +324,6 @@ int main(void)
 
         if (isrflags.capdone)
         {
-            stop_cap();
             isrflags.capdone = 0;
             updisplay();
             sched_cap();
