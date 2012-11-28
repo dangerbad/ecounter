@@ -1,0 +1,15 @@
+# Object files
+*.o
+*.elf
+*.hex
+*.eep
+
+# Libraries
+*.lib
+*.a
+
+*.dll
+*.so
+*.so.*
+*.dylib
+*.elf

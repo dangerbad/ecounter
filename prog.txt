@@ -1,0 +1,26 @@
+
+jiffy is 1/10 sec
+ timer 16bit 160 a second 10M/62500)
+ every 16 gate ^ m[jiffy]
+
+timer8
+ count on pulse
+ on overflow, ++o_count
+
+timer16
+ time++
+ if time = gate
+  temp count = count
+  set flag
+
+ main
+  ioinit
+  loop
+   read buttons and flag
+   read rx and flag
+   change modes if flagged
+   check for new count, or zero on mode change
+   zero all flags, do math
+   update lcd
+   send tx
+

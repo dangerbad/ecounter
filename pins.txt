@@ -1,0 +1,61 @@
+pc6 reset in
+pd0 rx
+pd1 tx
+pd2 bnt-0
+pd3 bnt-1
+pd4 t0-8b lcd-e
+vcc
+gnd
+pb6 xtal1
+pb7 xtal0
+pd5 t1-16b cnt-rco
+pd6 ain0 oc0b cnt-gate
+pd7 ain1 scale
+pb0 icp1-16b recip-in
+
+pc5 adc5 lcd-rs cnt-q7 msd
+pc4 adc4 lcd-rw cnt-q6
+pc3 adc3 lcd-d3 cnt-q5
+pc2 adc2 lcd-d2 cnt-q4
+pc1 adc1 lcd-d1 cnt-q3
+pc0 adc0 lcd-d0 cnt-q2
+gnd 
+aref
+avcc
+pb5 sck cnt-clr
+pb4 miso cnt-q1
+pb3 mosi cnt-q0
+pb2 ss oc1b cnt-reg
+pb1 oc1a  cnt-e
+
+********************
+lcd-d0
+lcd-d1
+lcd-d2
+lcd-d3
+lcd-rw
+lcd-rs
+lcd-e
+
+cnt-q0
+cnt-q1
+cnt-q2
+cnt-q3
+cnt-q4
+cnt-q5
+cnt-q6
+cnt-q7
+cnt-clr
+cnt-e
+cnt-g
+
+scaler
+
+button mode
+button gate
+
+******************
+two buttons
+can count 8+8 digit in hardware
+can time incoming raw at 16bit
+can control simple scaler
