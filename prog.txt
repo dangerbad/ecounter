@@ -1,4 +1,6 @@
 
+This is rough draft notes that are probably incorrect
+
 jiffy is 1/10 sec
  timer 16bit 160 a second 10M/62500)
  every 16 gate ^ m[jiffy]
