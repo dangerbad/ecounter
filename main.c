@@ -22,7 +22,6 @@ volatile struct isrstruct isrflags;
 volatile struct trigstruct trigflags;
 
 /* temp storage for lcd routine */
-
 char sfreq[16];
 char sjif[16];
 
@@ -66,16 +65,12 @@ void oca_none(void);
 void updisplay(void);
 uint8_t debounce(uint8_t b);
 
-/* update jiffies and operate gate */
-ISR(TIMER1_COMPA_vect)
-{
-
-}
-
 /* update count */
 /* used for direct counting only */
 ISR(TIMER0_OVF_vect)
 {
+    /* TODO */
+    /* FSM is proably not the best choce for logic here */
     static uint8_t state = CSTART;
     static uint16_t jstart;
     static uint16_t jend;
@@ -148,21 +143,46 @@ void oca_close(void)
     TCCR0A |= _BV(COM0B1); 
 }
 
+/* draw entire display, isn't updated offten enough to care */
 void updisplay(void)
 {
     lcd_clrscr();
     lcd_puts_p(PSTR("Freq:"));
+    switch (mode)
+    {
+        case MODE_10SEC:
+        case MODE_1SEC:
+        case MODE_100MS:
+        case MODE_10MS:
+            if (avg)
+            {
+                /* TODO */
+            };
+            ultoa(count,sfreq,10);
+            break;
+        case MODE_RECIP:
+            /* TODO */
+            break;
+        default:
+            strcpy_P(sfreq, PSTR("ERROR"));
+    }
     lcd_puts(sfreq);
     lcd_gotoxy(0,1);
     lcd_puts_p(PSTR("Mode:"));
     lcd_puts_p(gate_str[mode]);
+    lcd_puts_p(PSTR("A:"));
+    if (avg)
+        lcd_putc('Y');
+    else
+        lcd_putc('N');
     lcd_puts_p(PSTR(" J:"));
     ultoa(jiffies,sjif,10);
     lcd_puts(sjif);
 }
 
 
-/* configure hardware on startup */
+/* configure startup hardware */
+/* most of the hardare is set up after picking a mode */
 void ioinit(void)
 {
     /* Set up ports */
@@ -205,6 +225,7 @@ void nextmode(void)
 #define BHCNT 8 /* count to change button state to held */
 #define BUTTONS 2
 
+/* probably overkill */
 uint8_t readbutton(uint8_t b)
 {
     uint8_t r=0;
